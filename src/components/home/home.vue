@@ -67,6 +67,9 @@ export default {
 </script>
 
 <style>
+.el-container {
+    height: 100%;
+}
 .my_container {
     height: 100%;
 }
@@ -79,7 +82,7 @@ export default {
 
 .main {
   background-color: #e9eef3;
-  height: 100%;
+  height: 100% !important;
 }
 .header h2 {
     text-align:center;
