@@ -8,7 +8,26 @@
             </el-row>
         </el-header>
         <el-container>
-            <el-aside width="200px" class="aside">Aside</el-aside>
+            <el-aside width="200px" class="aside">
+                 <el-menu
+                    default-active="2"
+                    :unique-opened="true"
+                    :router="true"
+                    class="el-menu-vertical-demo">
+                    <el-submenu :index="''+item.order" v-for="(item,i) in menulist" :key="i">
+                        <template slot="title">
+                            <i class="el-icon-menu"></i>
+                            <span>{{item.authName}}</span>
+                        </template>
+                        <el-menu-item :index="item1.path" v-for="(item1,i) in item.children" :key="i">
+                             <template>
+                                <i class="el-icon-setting"></i>
+                                <span>{{item1.authName}}</span>
+                            </template>
+                        </el-menu-item>
+                    </el-submenu>
+                </el-menu>
+            </el-aside>
             <el-main class="main">Main</el-main>
         </el-container>
     </el-container>
@@ -18,10 +37,20 @@
 export default {
     data() {
         return {
+            menulist:[]
 
         }
     },
+    created() {
+        this.getMenus();
+    },
     methods: {
+        //动态获取左侧菜单栏
+        async getMenus() {
+            //设置token,在发送请求之前设置头部信息
+            const res = await this.$http.get(`menus`);
+            this.menulist = res.data.data;
+        },
         //退出登录
         logout() {
             //删除本地数据
