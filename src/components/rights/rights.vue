@@ -26,8 +26,12 @@
             width="280">
             </el-table-column>
             <el-table-column
-            prop="level"
             label="权限等级">
+                <template slot-scope="scope">
+                    <span v-if="scope.row.level === '0'">一级</span>
+                    <span v-if="scope.row.level === '1'">二级</span>
+                    <span v-if="scope.row.level === '2'">三级</span>
+                </template>
             </el-table-column>
             <el-table-column
             label="操作">
